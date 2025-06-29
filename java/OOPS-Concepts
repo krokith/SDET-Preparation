@@ -1,0 +1,282 @@
+# 🧠 Java OOPs & Automation Framework – Study Notes
+
+---
+
+## ✅ 1. Interface – What & Why
+
+- An **interface** defines **what** should be done, not **how**.
+- Only method signatures — no method body (implementation).
+- Used to build **flexible and reusable automation frameworks**.
+
+### 🔹 Example:
+```java
+public interface Browser {
+    void openBrowser();
+    void closeBrowser();
+}
+```
+
+```java
+public class ChromeBrowser implements Browser {
+    WebDriver driver;
+
+    public void openBrowser() {
+        driver = new ChromeDriver();
+    }
+
+    public void closeBrowser() {
+        driver.quit();
+    }
+}
+```
+
+✅ You can switch between browsers easily:
+```java
+Browser browser = new ChromeBrowser();  // Later: new FirefoxBrowser();
+```
+
+---
+
+## ✅ 2. Why WebDriver is an Interface
+
+- `WebDriver` is an interface in Selenium that defines common browser actions.
+- It allows us to work with multiple browsers (Chrome, Firefox, etc.) using the same code.
+
+```java
+WebDriver driver = new ChromeDriver(); // or FirefoxDriver, EdgeDriver, etc.
+```
+
+✔ Benefit: Browser-independent, reusable automation code.
+
+---
+
+## ✅ 3. Polymorphism – Real Use in Automation
+
+- **Polymorphism** = “One interface, many forms (objects)”.
+- You can use an interface type (`Browser`) to hold objects of different classes (`ChromeBrowser`, `FirefoxBrowser`).
+
+```java
+Browser browser = new ChromeBrowser();
+browser.openBrowser();
+```
+
+🔁 Later:
+```java
+browser = new FirefoxBrowser();  // Without changing test logic
+```
+
+---
+
+## ✅ 4. Abstract Class – What & Why
+
+- An **abstract class** is a partially complete class.
+- It can have:
+  - **Concrete methods** (with code)
+  - **Abstract methods** (without code)
+
+### 🔹 Example:
+```java
+public abstract class BaseTest {
+    WebDriver driver;
+
+    public void openUrl(String url) {
+        driver.get(url);
+    }
+
+    public abstract void setup(); // must be implemented by child
+}
+```
+
+```java
+public class ChromeTest extends BaseTest {
+    public void setup() {
+        driver = new ChromeDriver();
+    }
+}
+```
+
+✔ Use it to **share common code** like `openUrl()` across all tests.
+
+---
+
+## ✅ 5. Interface vs Abstract Class – Easy Comparison
+
+| Feature                        | Interface                          | Abstract Class                        |
+|-------------------------------|-------------------------------------|----------------------------------------|
+| Can have method body?         | ❌ (Except `default`, `static`)     | ✅ Yes                                  |
+| Variables                     | Only `public static final`         | Any type (`private`, `protected`, etc.)|
+| Constructors allowed?         | ❌ No                               | ✅ Yes                                  |
+| Multiple inheritance support  | ✅ Yes                              | ❌ No (Only one abstract class allowed) |
+| Real-world analogy            | **Job description**                | **Partially built template**           |
+| Purpose                       | Enforce structure                  | Share common code + enforce structure  |
+
+---
+
+## ✅ 6. When to Use Interface vs Abstract Class
+
+- **Use Interface** when:
+  - You only want to define a structure.
+  - You want multiple inheritance.
+  - No need to share reusable code.
+
+- **Use Abstract Class** when:
+  - You want to **share some code**.
+  - You want to enforce some rules + give some help.
+  - Inheritance is one-to-one (single parent class).
+
+---
+
+## ✅ 7. Key Takeaways
+
+- Use **Interface** to define "what should be done" in a test (e.g., opening browsers).
+- Use **Abstract Class** to provide shared methods like setup, logging, reporting.
+- `WebDriver` is an **interface**, allowing flexible browser handling.
+- Use **Polymorphism** to switch browsers or implementations easily.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 🔥 OOPs Concepts in Hybrid Automation Framework – Study Notes
+
+---
+
+## 🔐 1. Encapsulation – "Wrap & Protect"
+
+### ✅ Definition:
+Encapsulation means bundling data (variables) and methods (functions) into a single unit (class), and restricting direct access to internal details.
+
+### ✅ Why Use It?
+- Hides WebElement locators and internal logic
+- Protects data from accidental changes
+- Improves modularity and safety
+
+### ✅ Where Used?
+- Page Object Model classes (LoginPage, HomePage, etc.)
+
+### ✅ When Used?
+- When creating page methods that interact with elements
+
+### ✅ Example:
+```java
+public class LoginPage {
+    private WebDriver driver;
+    private By email = By.id("email");
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void enterEmail(String value) {
+        driver.findElement(email).sendKeys(value);
+    }
+}
+```
+
+---
+
+## 🧬 2. Inheritance – "Reusability with Extension"
+
+### ✅ Definition:
+Inheritance allows one class to inherit properties and behaviors from another class.
+
+### ✅ Why Use It?
+- Reuse browser setup, teardown, config, logging, utilities
+- Eliminate code duplication
+
+### ✅ Where Used?
+- BaseTest classes, Common Utility classes
+
+### ✅ When Used?
+- When writing test classes that need shared setup/logic
+
+### ✅ Example:
+```java
+public class BaseTest {
+    WebDriver driver;
+
+    public void launchBrowser() {
+        driver = new ChromeDriver();
+    }
+}
+
+public class LoginTest extends BaseTest {
+    @Test
+    public void testLogin() {
+        launchBrowser(); // inherited method
+    }
+}
+```
+
+---
+
+## 🕵️ 3. Abstraction – "Hide the Details, Show What Matters"
+
+### ✅ Definition:
+Abstraction hides complex logic and exposes only relevant methods to the user.
+
+### ✅ Why Use It?
+- Keeps tests readable and simple
+- Testers don’t need to know how internal methods work
+
+### ✅ Where Used?
+- Page classes, business logic layers, reusable helpers
+
+### ✅ When Used?
+- When exposing actions like login, search, checkout, etc.
+
+### ✅ Example:
+```java
+public class HomePage {
+    WebDriver driver;
+
+    public void searchProduct(String product) {
+        driver.findElement(By.id("searchBox")).sendKeys(product);
+        driver.findElement(By.id("searchBtn")).click();
+    }
+}
+```
+
+---
+
+## 🔄 4. Polymorphism – "One Interface, Many Behaviors"
+
+### ✅ Definition:
+Polymorphism means one interface or method behaves differently based on the object.
+
+### ✅ Why Use It?
+- Supports cross-browser setup and flexibility
+- Allows dynamic object behavior at runtime
+
+### ✅ Where Used?
+- WebDriver, Browser interfaces, Data Reader strategy
+
+### ✅ When Used?
+- When switching between Chrome, Firefox, Edge
+- When building scalable and extensible framework
+
+### ✅ Example:
+```java
+public interface Browser {
+    void openBrowser();
+}
+
+public class ChromeBrowser implements Browser {
+    public void openBrowser() {
+        System.out.println("Chrome Launched");
+    }
+}
+
+Browser browser = new ChromeBrowser();
+browser.openBrowser(); // Output: Chrome Launched
+```
+
+---
+
+## 🧠 Summary Table
+
+| OOP Concept     | Why Use It                                | Where It's Used             | When It's Used                              |
+|-----------------|--------------------------------------------|-----------------------------|----------------------------------------------|
+| Encapsulation   | Protect internal logic & expose clean API | Page classes (POM)          | When wrapping locators & Selenium actions    |
+| Inheritance     | Reuse base methods across tests           | BaseTest, Utility classes   | When writing any test class                  |
+| Abstraction     | Hide internal logic from test cases       | Page classes, Helper utils  | When exposing business functions like login  |
+| Polymorphism    | Flexible browser/data handling            | Interfaces, DriverFactory   | When enabling cross-browser or strategy use  |
