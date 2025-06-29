@@ -1,0 +1,47 @@
+Part 3: Exception Handling
+✅ Try-Catch-Finally
+try: risky code
+
+catch: handle exceptions
+
+finally: always runs (cleanup/logging)
+
+✅ Multiple Catch Blocks
+Used for handling different error types separately
+
+✅ Throw vs Throws
+throw: to manually raise exception
+
+throws: to declare method might raise exception
+
+✅ Custom Exceptions
+User-defined for meaningful errors
+
+ElementNotFoundException, InvalidTestDataException
+
+✅ Best Practices
+Never use empty catch blocks
+
+Use Logger instead of System.out.println
+
+Group reusable exceptions in exceptions/ package
+
+📁 Folder Structure (Real Project)
+vbnet
+Copy
+Edit
+HybridAutomationFramework/
+├── base/           → BaseTest.java
+├── pages/          → LoginPage.java
+├── exceptions/     → Custom exception classes
+├── tests/          → TestNG or JUnit classes
+├── utils/          → Optional: ExcelReader, Logger, JSONParser
+└── pom.xml         → (if Maven)
+✅ Summary Table – Framework Usage
+Concept	Real Use in Framework
+Encapsulation	Hide locators, expose public actions
+Inheritance	BaseTest reused in multiple test classes
+Abstraction	Expose only business-level methods
+Polymorphism	Use WebDriver or Browser interface
+ExceptionHandling	Graceful fail with clear error logs
+
