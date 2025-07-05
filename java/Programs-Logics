@@ -1,0 +1,32 @@
+package Arrays;
+import java.util.*;
+
+public class intersectionarray {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int[] arr2 = {3, 4, 5, 6, 7};
+        int[] result = findintersectionarray(arr1, arr2);
+        System.out.print(Arrays.toString(result));
+    }
+
+    public static int[] findintersectionarray(int[] arr1, int[] arr2) {
+        HashSet<Integer> set = new HashSet<>();                      // creating a HashSet to store unique Values in var Set
+        int[] temp = new int[Math.min(arr1.length, arr2.length)];                  // creating a temp variable array with a formula 
+        int index = 0;    //index is for placing the values
+
+        for (int num : arr1) {
+            set.add(num);
+        }
+
+        for (int num : arr2) {
+            if (set.contains(num)) {
+                temp[index++] = num;
+                set.remove(num);
+            }
+        }
+
+        int[] result = new int[index];
+        System.arraycopy(temp, 0, result, 0, index);       //Using  System.arraycopy  to transfer from One array(temp) to other array (result)
+        return result;
+    }
+}
