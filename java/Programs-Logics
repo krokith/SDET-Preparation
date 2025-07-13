@@ -30,3 +30,29 @@ public class intersectionarray {
         return result;
     }
 }
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. How to FInd the Kth Largest and Kth Smallest element / FInd the Second Largest Number and Second Smallest Number/ find the Duplicates and find the Kth Numbers
+
+i) By Using Arrays.sort fn
+
+import java.util.Arrays;
+
+public class KthElements {
+    public static void main(String[] args) {
+        int[] arr = {12, 3, 5, 7, 19, 4};
+        int k = 2; // Example: 2nd smallest and 2nd largest  // replace with it 
+
+        Arrays.sort(arr); // Sort the array       {3,4,5,7,12,19}
+
+        int kthSmallest = arr[k - 1];
+        int kthLargest = arr[arr.length - k];
+
+        System.out.println(k + "th Smallest element is " + kthSmallest);
+        System.out.println(k + "th Largest element is " + kthLargest);
+    }
+}
+
+ii) Without Sorting, By Using For Loop 
+-------------------------------------------------------------------------------------------------------
