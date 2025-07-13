@@ -56,3 +56,28 @@ public class KthElements {
 
 ii) Without Sorting, By Using For Loop 
 -------------------------------------------------------------------------------------------------------
+public static void findSecondMinAndMax(int[] arr) {
+    int firstMin = Integer.MAX_VALUE, secondMin = Integer.MAX_VALUE;
+    int firstMax = Integer.MIN_VALUE, secondMax = Integer.MIN_VALUE;
+
+    for (int num : arr) {
+        // For smallest
+        if (num < firstMin) {
+            secondMin = firstMin;
+            firstMin = num;
+        } else if (num < secondMin && num != firstMin) {
+            secondMin = num;
+        }
+
+        // For largest
+        if (num > firstMax) {
+            secondMax = firstMax;
+            firstMax = num;
+        } else if (num > secondMax && num != firstMax) {
+            secondMax = num;
+        }
+    }
+
+    System.out.println("Second Smallest: " + (secondMin == Integer.MAX_VALUE ? "Not found" : secondMin));
+    System.out.println("Second Largest: " + (secondMax == Integer.MIN_VALUE ? "Not found" : secondMax));
+}
