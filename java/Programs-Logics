@@ -81,3 +81,25 @@ public static void findSecondMinAndMax(int[] arr) {
     System.out.println("Second Smallest: " + (secondMin == Integer.MAX_VALUE ? "Not found" : secondMin));
     System.out.println("Second Largest: " + (secondMax == Integer.MIN_VALUE ? "Not found" : secondMax));
 }
+-------------------------------------------------------------------------------------------------------------------------------------------
+By Using Sorting and reverse Sorting 
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] arr = {12, 3, 5, 7, 19, 4};
+        int k = 2; // Example: 2nd smallest and 2nd largest
+        Arrays.sort(arr); // Sort the array
+        int kthLargest = arr[arr.length - k];
+        System.out.println(k + "th Largest element is " + kthLargest);
+        // for Finding the smallest, we are creating the ArrayList
+         List<Integer> list = new ArrayList<>();
+        for(int num:arr){
+        list.add(num);
+        }
+        Collections.sort(list,Collections.reverseOrder());
+        System.out.print(list.get(list.size()-k));
+    }
+}
+ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
