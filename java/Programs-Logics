@@ -144,3 +144,32 @@ class Main {
 }       System.out.print(Arrays.toString(arr1));
     }
 }
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+5. Find the last and First Occurence of the Array 
+class Main {
+    public static void main(String[] args) {
+        int[] a = {1, 2, 3, 2, 4, 2, 3, 4, 2};
+        int target = 2;
+
+        int first = -1, last = -1;  // Assigning the first and last values as -1(sentinel value)(not found)
+
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == target) {
+                first = i;
+                break;
+            }
+        }
+        for (int j = a.length - 1; j >= 0; j--) {
+            if (a[j] == target) {
+                last = j;
+                break;
+            }
+        }
+        if (first != -1 && last != -1) {
+            System.out.println("First Occurrence: " + first);
+            System.out.println("Last Occurrence: " + last);
+        } else {
+            System.out.println("Element not found.");
+        }
+    }
+}
