@@ -102,4 +102,45 @@ class Main {
     }
 }
  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Rotate Array (Right shift)
 
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int n=3;           // mentioning how many times it has to Shift(no.of rotation) 
+        for(int j=0;j<n;j++)        //iteration starts to repeat the Below Code
+        {
+       int last = arr1[arr1.length-1]; //which gives the index Value of array 
+       for(int i=arr1.length-1;i>0;i--)     //(int i=4;i>0;i--) 
+       {
+           arr1[i] = arr1[i-1];  //arr1[4] = arr1[3] ->  {,1,1,2,3,4}
+       }
+        arr1[0] = last;    arr1[0] = 5;  ->   {5,1,2,3,4}
+        }
+       System.out.print(Arrays.toString(arr1));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+4. ROtate array - left shift
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int n=3;
+        for(int j=0;j<n;j++)
+{
+
+       int first = arr1[0]; //which gives the first index Value
+       for(int i=0;i<arr1.length-1;i++)
+       {
+           arr1[i] = arr1[i+1]; // arr1[0] = arr1[1]; -> {2,3,4,5,5}
+       }
+        arr1[arr1.length-1] = first;  -> {2,3,4,5,1}
+        
+}       System.out.print(Arrays.toString(arr1));
+    }
+}
