@@ -173,3 +173,56 @@ class Main {
         }
     }
 }
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+6. Move All Zeros to Last 
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] a = {0, 0, 0, 1, 0, 2, 3};
+
+        int[] temp = new int[a.length]; // create array with same length
+        int index = 0;
+
+        // Copy all non-zero elements to temp
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != 0) {
+                temp[index++] = a[i];
+            }
+        }
+
+        // Remaining elements (zeros) are already 0 by default in temp[]
+
+        System.out.println(Arrays.toString(temp));
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+7. sorting the Array without any Builtin Fn
+
+public class EasySort {
+    public static void main(String[] args) {
+        int[] arr = {4, 2, 1, 5, 3};
+
+        // Sorting logic
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                // Swap if current element is greater than the next one
+                if (arr[i] > arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        // Print sorted array
+        System.out.println("Sorted Array:");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+
