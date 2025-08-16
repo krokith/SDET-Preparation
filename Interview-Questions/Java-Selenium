@@ -1,0 +1,78 @@
+1.  Explain me About your Automation Framework ?
+
+I have extensively worked on  a Hybrid Automation Framework for the E-commerce domain using Java, Selenium WebDriver, and Rest Assured. It follows a POM structure with TestNG for execution and Extent/Allure Reports for detailed reporting.
+The framework supports UI and API testing, combining data-driven, keyword-driven, and modular approaches.
+It’s integrated with Jenkins CI/CD, so smoke, regression, and API suites run automatically on every build, ensuring quick feedback. 
+Overall, it provides end-to-end coverage of e-commerce workflows like product search, checkout, payments, and backend API validations.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2.Explain me the OOPS concepts which u have Used in Framework?
+
+1. Encapsulation – "Wrap & Protect"
+
+### ✅ Definition:
+Encapsulation means bundling data (variables) and methods (functions) into a single unit (class), and restricting direct access to internal details.
+We use encapsulation in POM classes to hide locators and Selenium logic, making the framework safe, modular, and maintainable
+
+### ✅ Why Use It?
+- Hides WebElement locators and internal logic
+- Protects data from accidental changes
+- Improves modularity and safety
+
+### ✅ Where Used?
+- Page Object Model classes (LoginPage, HomePage, etc.)
+
+### ✅ When Used?
+- When creating page methods that interact with elements
+-----------------------------------------------------------------------
+## 🧬 2. Inheritance – "Reusability with Extension"
+### ✅ Definition:
+Inheritance allows one class to inherit properties and behaviors from another class.
+### ✅ Why Use It?
+- Reuse browser setup, teardown, config, logging, utilities
+- Eliminate code duplication
+
+### ✅ Where Used?
+- BaseTest classes, Common Utility classes
+
+### ✅ When Used?
+- When writing test classes that need shared setup/logic
+---------------------------------------------------------------------------------------------------------
+## 🕵️ 3. Abstraction – "Hide the Details, Show What Matters"
+### ✅ Definition:
+Abstraction hides complex logic and exposes only relevant methods to the user.
+When: When exposing high-level actions like login, search, checkout, or any business flow.
+Where: In page classes, helper classes, or business logic layers.
+Why:Hides complex Selenium or internal logic from tests
+Keeps test scripts simple, readable, and easy to maintain
+"We use abstraction to expose only essential actions to tests, hiding the underlying implementation, which makes scripts clean and readable."
+exampple
+public class LoginPage {
+    WebDriver driver;
+    public void login(String user, String pass) {
+        driver.findElement(By.id("email")).sendKeys(user);
+        driver.findElement(By.id("pass")).sendKeys(pass);
+        driver.findElement(By.id("loginBtn")).click();
+    }
+}
+// Test
+loginPage.login("user@example.com", "password123"); // Hides internal Selenium steps
+
+The login() method abstracts Selenium actions so tests remain clean and readable without knowing the underlying steps."
+-------------------------------------------------------------------------------------------------------
+## 🔄 4. Polymorphism – "One Interface, Many Behaviors"
+### ✅ Definition:
+Polymorphism means one interface or method behaves differently based on the object.
+
+In my framework, I use polymorphism to make it flexible and scalable. Method overriding allows the same method to behave differently at runtime
+for example, the openBrowser() method behaves differently for Chrome or Firefox objects. Method overloading lets us use the same method name with different parameters,like login(username, password) and login(username, password, otp). 
+This way, our framework can handle multiple browsers and login scenarios efficiently without duplicating code."
+
+## 🧠 Summary Table
+
+| OOP Concept     | Why Use It                                | Where It's Used             | When It's Used                              |
+|-----------------|--------------------------------------------|-----------------------------|----------------------------------------------|
+| Encapsulation   | Protect internal logic & expose clean API | Page classes (POM)          | When wrapping locators & Selenium actions    |
+| Inheritance     | Reuse base methods across tests           | BaseTest, Utility classes   | When writing any test class                  |
+| Abstraction     | Hide internal logic from test cases       | Page classes, Helper utils  | When exposing business functions like login  |
+| Polymorphism    | Flexible browser/data handling            | Interfaces, DriverFactory   | When enabling cross-browser or strategy use  |
