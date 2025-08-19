@@ -76,3 +76,132 @@ This way, our framework can handle multiple browsers and login scenarios efficie
 | Inheritance     | Reuse base methods across tests           | BaseTest, Utility classes   | When writing any test class                  |
 | Abstraction     | Hide internal logic from test cases       | Page classes, Helper utils  | When exposing business functions like login  |
 | Polymorphism    | Flexible browser/data handling            | Interfaces, DriverFactory   | When enabling cross-browser or strategy use  |
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. How does Selenium Interacts with Browsers
+
+Selenium WebDriver interacts with the browser using a client-server architecture.
+First, our test scripts (Java/Python/etc.) send commands to the WebDriver API.
+WebDriver communicates with the browser-specific driver (like ChromeDriver, GeckoDriver, EdgeDriver) using the JSON Wire Protocol / W3C WebDriver protocol
+The driver translates these commands into native browser actions (like click, type, navigate).
+The browser executes them and sends the response back to WebDriver, which our test script can use.
+
+Example: When we call driver.findElement(), the flow is:
+Test Script → WebDriver API → Browser Driver → Browser → Response → Back to Script.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4.Explain Java Collections and where do we use it in our Automation Framework?
+
+The Java Collections Framework (in java.util) is a set of interfaces and classes (e.g., List, Set, Map) for storing and manipulating groups of objects. 
+It provides reusable data structures like ArrayList, HashSet, and HashMap with methods for adding, removing, and processing data efficiently.
+
+List (ArrayList): Ordered, allows duplicates (e.g., web elements).
+Set (HashSet): Unique items (e.g., error messages).
+Map (HashMap): Key-value pairs (e.g., test data).
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5. ArrayList vs LinkedList
+ArrayList
+Data Structure: Uses a dynamic array internally.
+Access Time: O(1) for random access (fast lookups by index).
+Insert/Delete: O(n) in worst case (shifting required when inserting/removing in the middle).
+Best Use Case: When you need frequent access/iteration and fewer insertions/deletions.
+
+LinkedList
+Data Structure: Uses a doubly linked list internally.
+Access Time: O(n) for random access (must traverse nodes).
+Insert/Delete: O(1) if node reference is known (no shifting required).
+Best Use Case: When you need frequent insertions/deletions, especially in the middle.
+
+"ArrayList is better for fast random access, while LinkedList is better for frequent insertions and deletions."
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6.  What is PageObjectModel?
+
+POM is one of a Design Pattern where Web UI elements and actions are stored as a methods in separate page classes
+We use POM structure in Automation Framewotk to separate the each page classes and UI locators
+which Increases readability, reusability, and maintainability. If a locator changes, we only update in one place.
+
+Example:  instead of writing locators directly in test cases we write in a class with a method and call them as LoginPage.login(username, password).
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7. what are Design pattern
+Design Patterns in Automation Framework
+Design patterns are proven solutions to common problems in framework design. In automation, they help improve reusability, maintainability, and scalability. Some commonly used patterns are:
+
+Page Object Model (POM)
+Separates UI locators and test logic into different classes.
+Reduces duplication, makes scripts maintainable.
+Example: LoginPage.login(username, password) instead of writing locators directly in test cases.
+
+Singleton Pattern
+Ensures only one WebDriver instance is created across tests.
+Prevents multiple browser sessions from conflicting.
+
+Factory Pattern
+Used for object creation.
+Example: A DriverFactory class that returns different browsers (Chrome, Firefox) based on config.
+
+Data-Driven / Strategy Pattern
+Allows running the same test with different sets of data (Excel, JSON, DB, CSV).
+Improves test coverage without duplicating code.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8.  Waits in Selenium 
+In automation frameworks, waits are used to handle synchronization. We mainly use implicit waits (global), explicit waits (condition-based), and fluent waits (with polling).
+
+Implicit Wait
+Global wait applied to the entire WebDriver instance.
+Tells WebDriver to wait for a fixed amount of time while locating elements before throwing NoSuchElementException.
+Example: driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+Explicit Wait
+Waits for a specific condition to be met before proceeding.
+More powerful and flexible than implicit wait.
+Fluent wait 
+A type of explicit wait with polling frequency and ability to ignore exceptions.
+
+Hard waits like Thread.sleep() are less efficient and should be avoided unless absolutely necessary
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9.  Abstract class vs Inheritance 
+Abstract Class
+A class declared with the keyword abstract.
+Can have both abstract methods (no body) and concrete methods (with implementation).
+Cannot be instantiated directly; must be inherited by a subclass.
+Support Single inheritance
+u can use abstract class when u need base implementation
+Example:
+
+abstract class Animal {
+    abstract void sound();  // abstract method
+    void sleep() {          // concrete method
+        System.out.println("Sleeping");
+    }
+}
+
+Inheritance
+A contract that defines a Set of abstract methods which a class has to implement in it 
+its a Blueprint 
+Support multiple inheritance
+Access modifier are public
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10. what are Constrcutors?
+A special method in Java that is called automatically when an object is created.
+Purpose → To initialize objects (assign values, setup dependencies).
+Constructor name = Class name, and it has no return type.
+Types - Default, paramter and copy 
+ We use In Automation Frameworks (POM) → Used to initialize WebDriver, PageFactory, and other utilities when a Page class is created.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11.  Errors and Exceptions 
+Errors: errors are some issues which occur at runtime and cannot be Handled in code 
+example: Out of Memory error/StackOverflow error - happens due to system failures
+Exceptions : some unexpected events which distrubs the flow of execution, which can be handled and caught by using try and catch block
+
+Types 
+Checked Exceptions(Compile time) -  must be handled try catch and throws - eg: IO exceptions,SQL Exceptions
+Unchecked Exceptions(Runtime) -  Occurs at Runtime only - eg : Nullpointer Exception,ArrayIndexOut of Bond
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12. 
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
