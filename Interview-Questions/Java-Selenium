@@ -200,8 +200,96 @@ Types
 Checked Exceptions(Compile time) -  must be handled try catch and throws - eg: IO exceptions,SQL Exceptions
 Unchecked Exceptions(Runtime) -  Occurs at Runtime only - eg : Nullpointer Exception,ArrayIndexOut of Bond
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-12. 
 
+12. Exception Handling
+The Exception Handling make sures that the Current Test Script doent abrutly fail due to some unwanted flow of events
+so we use try catch finally block or throws to Handle the exceptions 
 
+i) How do you design a custom exception for a test framework?
+Custom exceptions make error messages more meaningful in automation frameworks. 
+Custom exceptions give more context-specific errors rather than generic ones. For example, in a Selenium framework, 
+if an element is not found, instead of throwing a generic NoSuchElementException, we can define a custom exception like:
+we can predefine the exceptiion method and give meaning message while calling it 
+for eg: class ElementNotFoundException extends Exception {
+    public ElementNotFoundException(String message) {
+        super(message);
+    }
+}
+
+// Usage in framework
+if(element == null) {
+   throw new ElementNotFoundException("Login button not found on page");
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13. Method Overloading and Overriding 
+
+i)method Overloading happens when same method used mulitple times with the same name but different parameters within class
+it is resiolved in compile time so called as compile time polymorphism
+Allows a class to perform a diff ways to actions
+doent support inheritance
+
+ii) Overriding happens when the subclass provides specific way of its own implementattions which has inherited by the Superclass
+Supports inheritance
+its resolved in runtime polymorphism
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14. what is Garbage collector ?
+
+Garbage collector  in java is mainly used to automatically manage the memory which has been occupied by Object class
+it removes the unused objects from memory to free up the resources
+we can call system.gc to cleanup the unused memories
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15. What is static ?
+The static keyword in Java is mainly used for memory management. It can be applied to variables, methods, blocks, and nested classes
+ Anything declared static belongs to the class rather than to a specific object, which means it is shared across all instances.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+16.  What is Object class?
+Object is the parent class of all classes in Java.
+Every class implicitly inherits from Object.
+It provides common methods like toString(), equals(), hashCode(), clone(), etc.
+ Example: Even if you don’t extend anything, your class still extends Object.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+17.Difference between final, finally, and finalize
+
+final → Keyword used with variables (constant), methods (cannot override), and classes (cannot extend).
+finally → Block in try-catch used to execute cleanup code (always runs).
+finalize() → Method called by Garbage Collector before destroying an object.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+18.what is maven with commands?
+Maven is a Build Automation and depedency management Tool
+which has JAR files,plugIns, CI/CD integrations and helps to run the Test easily 
+we use Maven to simplify the project Setup and manage the dependencies
+
+Commands 
+mvn clean -> remove the previous Build and clean it 
+mvn compile -> compile the source code
+mvn test -> runs the Current Testcase 
+mvn install -> install the package into local repo
+mvn package -> packages the code into JAR
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19. what are Strings StringBuilder and StringBuffer?
+
+Difference between String, StringBuffer, and StringBuilder
+String → Immutable; once created, value cannot change. Every modification creates a new object.
+StringBuffer → Mutable and thread-safe, but slower due to synchronization.
+StringBuilder → Mutable and faster, but not thread-safe.
+Use String for constants, StringBuilder for fast modifications, and StringBuffer in multi-threaded contexts.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+20. Difference between JDK, JRE, JVM
+
+JVM is the Java Virtual Machine that executes Java bytecode and makes Java platform-independent.
+JRE is the Java Runtime Environment, which provides JVM plus libraries and files needed to run Java applications.
+JDK is the Java Development Kit, which includes JRE plus compilers and tools needed to develop Java programs.
+👉 In short: JVM runs, JRE supports, JDK develops.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21.Difference between List, Set, and Map
+
+List → Ordered collection, allows duplicates, indexed access. Example: ArrayList for storing test inputs.
+Set → Unordered collection, no duplicates. Example: HashSet for unique locators or IDs.
+Map → Stores key-value pairs, keys unique. Example: HashMap for storing element locators with their names.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
