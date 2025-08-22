@@ -1,0 +1,120 @@
+Selenium Scripts 
+
+
+1.Write a Step Definition of Login Script with BDD cucumber Gherkins Scenario 
+
+Scenario: Successful login
+  Given user is on login page
+  When user enters valid username and password
+  Then user should be redirected to the homepage
+-----------------------------------------------------------------------------------
+Step Definition
+
+import io.cucumber.java.en.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginSteps {
+    WebDriver driver;
+
+    @Given("user is on login page")
+    public void user_is_on_login_page() {
+        driver = new ChromeDriver();
+        driver.get("https://example.com/login");
+    }
+
+    @When("user enters valid username and password")
+    public void user_enters_valid_username_and_password() {
+        driver.findElement(By.id("username")).sendKeys("testuser");
+        driver.findElement(By.id("password")).sendKeys("password123");
+        driver.findElement(By.id("loginBtn")).click();
+    }
+
+    @Then("user should be redirected to the homepage")
+    public void user_should_be_redirected_to_the_homepage() {
+        String actualTitle = driver.getTitle();
+        if (!actualTitle.contains("Home")) {
+            throw new AssertionError("User is not on the homepage!");
+        }
+        driver.quit();
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------
+2. Step Definitions with POM Structure with BDD cucumber Gherkins Scenario 
+
+Scenario: Successful login
+  Given user is on login page
+  When user enters valid username and password
+  Then user should be redirected to the homepage
+-------------------------------------------------------------------
+Page Object Class
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class LoginPage {
+    WebDriver driver;
+
+    // Locators
+    private By usernameField = By.id("username");
+    private By passwordField = By.id("password");
+    private By loginBtn = By.id("loginBtn");
+
+    // Constructor
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    // Actions
+    public void enterUsername(String username) {
+        driver.findElement(usernameField).sendKeys(username);
+    }
+
+    public void enterPassword(String password) {
+        driver.findElement(passwordField).sendKeys(password);
+    }
+
+    public void clickLogin() {
+        driver.findElement(loginBtn).click();
+    }
+
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+}
+----------------------------------------------------
+Step Definition Class (LoginSteps.java)
+
+import io.cucumber.java.en.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class LoginSteps {
+    WebDriver driver;
+    LoginPage loginPage;
+
+    @Given("user is on login page")
+    public void user_is_on_login_page() {
+        driver = new ChromeDriver();
+        driver.get("https://example.com/login");
+        loginPage = new LoginPage(driver);
+    }
+
+    @When("user enters valid username and password")
+    public void user_enters_valid_username_and_password() {
+        loginPage.enterUsername("testuser");
+        loginPage.enterPassword("password123");
+        loginPage.clickLogin();
+    }
+
+    @Then("user should be redirected to the homepage")
+    public void user_should_be_redirected_to_the_homepage() {
+        String actualTitle = loginPage.getPageTitle();
+        Assert.assertTrue(actualTitle.contains("Home"), "User is not on the homepage!");
+        driver.quit();
+    }
+}
+
+
