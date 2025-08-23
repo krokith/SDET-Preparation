@@ -299,3 +299,44 @@ public class Main {
     }
 }
 
+----------------------------------------------------------------------------------------------------------------------
+11. Create a  List and add numbers and Find odd number
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        List<Integer> list = Arrays.asList(45,25,36,98,87);
+        
+        //edge case 1 
+        if(list==null){
+            System.out.println("List is null");
+        }
+        
+        //Edge case 2
+        if(list.isEmpty())
+        {
+        System.out.println("List is empty");
+        }
+        
+        //Adding a new List 
+        
+        List<Integer> oddnum = new ArrayList<>();
+        //Edge case 3 
+         for(int num : list)
+         {
+             if(num%2!=0)
+             {
+                oddnum.add(num); 
+             }
+         }
+         //Edge case 4 
+         if(oddnum.isEmpty())
+         {
+         System.out.println("List has no  odd number");
+         }
+         else
+         {
+        System.out.println("The odd numbers are "+oddnum);
+         }
+         
+    }
+}
