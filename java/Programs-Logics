@@ -340,3 +340,41 @@ public class Main{
          
     }
 }
+
+------------------------------------------------------------------------------------------------------------
+
+13. Sort thr negatives zeros and postives
+
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] a = {-12, 28, 98, -85, 14, 0, 0, -96, 45};
+        int[] result = new int[a.length];
+        int index = 0;
+
+        // 1. Negatives
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < 0) {
+                result[index++] = a[i];
+            }
+        }
+
+        // 2. Zeros
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == 0) {
+                result[index++] = a[i];
+            }
+        }
+
+        // 3. Positives
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > 0) {
+                result[index++] = a[i];
+            }
+        }
+
+        System.out.println(Arrays.toString(result));
+    }
+}
+
