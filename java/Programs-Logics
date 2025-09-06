@@ -446,5 +446,24 @@ class Main{
         System.out.print(sb);
     }
 }
+   -------------------------------------------------------------------------------------
+
+17. //rokithkumar -> ramuk##ikor_;
+import java.util.*;
+class Main{
+    public static void main(String[] ags){
+        String str = "rokithkumar";
+        String before = str.substring(0,4);
+        String mid = str.substring(4,6);
+        String after = str.substring(6);
+        
+    
+String before_rev = new StringBuilder(before).reverse().toString();
+String After_rev =  new StringBuilder(after).reverse().toString();
+    
+        
+        System.out.print(After_rev+mid+before_rev);
+    }
+}
    
 
