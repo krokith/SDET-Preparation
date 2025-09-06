@@ -422,5 +422,29 @@ class Main{
         
     }
 }
+------------------------------------------------------------------------------------
 
+16. 
+//rokithkumar -> rokith_uma_;
+import java.util.*;
+class Main{
+    public static void main(String[] ags){
+        String str = "rokithkumar";
+        StringBuilder sb = new StringBuilder();
+        HashSet<Character> set = new HashSet<>();
+        for(char c :str.toCharArray())
+        {
+            if(set.contains(c))
+            {
+                sb.append('_');
+                
+            }else{
+                set.add(c);
+                sb.append(c);
+            }
+        }
+        System.out.print(sb);
+    }
+}
+   
 
