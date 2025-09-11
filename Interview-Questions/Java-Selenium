@@ -296,3 +296,15 @@ Map → Stores key-value pairs, keys unique. Example: HashMap for storing elemen
 A flaky test is one that shows inconsistent results – it passes sometimes and fails other times without any code changes.
 They often occur due to timing issues, unstable environments, or test data dependencies. To handle them, I use explicit waits instead of hard waits, isolate tests to remove dependencies,
 ensure stable test data, and if needed, add retry logic in CI. Proper logging also helps in diagnosing and fixing flaky behavior.”
+------------------------------------------------------------------------------------------------------------------------------------------------------
+23. Typecasting
+Typecasting is converting one data type to another. In test automation, I often use it when working with API responses, Excel data, or Selenium UI values. 
+For example, an API might return a value as 12.0 (double), but my validation expects an integer 12, so I cast it. Similarly, while validating product prices in e-commerce UI, 
+I might get ₹199.99 as a string, convert it to double, and then cast to int for comparison This helps align actual values with expected values in test cases
+------------------------------------------------------------------------------------------------------------------------------------------------------
+24. why javaScript is better than Java-Selenium?
+JavaScript-based automation frameworks (like Cypress or Playwright) are preferred for modern web apps because they are faster, handle dynamic content better,
+have built-in waits, simpler setup, and provide integrated reporting.
+Java-Selenium is powerful, but JS frameworks reduce flakiness and speed up development for front-end testing.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+25. 
