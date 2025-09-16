@@ -1,0 +1,49 @@
+1.Create a New Branch & Push
+
+git checkout -b branchname
+git add .
+git commit -m 
+git pull
+git push orgin branchname
+-------------------------------------------------------------------------------------------------------------
+2.Raise a Pull Request (PR)
+
+git push origin feature-branch
+# then either:
+gh pr create --base main --head feature-branch --title "Feature XYZ" --body "Details"
+# or open GitHub UI → "Compare & Pull Request"
+
+---------------------------------------------------------------------------------------------------------
+3. To avoid conflicts 
+
+git pull origin main                # keep branch updated with latest main
+# If conflicts occur:
+# Fix conflicts manually in files → then
+git add <filename>                  # stage resolved files
+git commit -m "Resolved conflicts"
+
+---------------------------------------------------------------------------------------------------------
+4. TO save the changes temporiarily 
+
+git stash                           # save changes temporarily
+git stash list                      # show stashes
+git stash apply                     # bring changes back
+git stash drop                      # delete stash
+
+-------------------------------------------------------------------------------------------------
+5.TO close a PR 
+gh pr close <PR_number> --delete-branch
+--------------------------------------------------------------------
+6. Delete a Branch 
+git branch -d feature-branch        # delete branch locally (safe delete)
+git branch -D feature-branch        # force delete locally
+git push origin --delete feature-branch   # delete branch from remote
+
+
+
+
+
+
+
+
+
