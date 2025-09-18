@@ -1,0 +1,74 @@
+Top 10 Jenkins Interview Q&A (Senior SDET)
+
+1. What is Jenkins and why is it used?
+
+👉 Jenkins is a CI/CD automation tool that integrates code build, test, and deployment in one pipeline. It ensures faster feedback and reduces manual errors.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. What is the difference between Freestyle Job and Pipeline Job?
+
+Freestyle → Simple, GUI-based, hard to scale.
+
+Pipeline → Written in Jenkinsfile (Groovy), version-controlled, supports advanced CI/CD.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. What is the difference between Declarative and Scripted Pipelines?
+
+Declarative → Easier, structured syntax (pipeline { ... }).
+
+Scripted → Flexible, more control (node { ... }).
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. How do you parameterize Jenkins jobs?
+
+Define parameters in Jenkinsfile (string, choice).
+ Used to make jobs dynamic.
+
+parameters {
+  string(name: 'ENV', defaultValue: 'QA', description: 'Environment')
+}
+
+Access using ${params.NAME}.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. How does Jenkins integrate with Git?
+
+Configure webhook or use Poll SCM.
+
+Checkout code in pipeline using checkout scm.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. How do you run automation tests in Jenkins?
+
+Trigger tests using Maven/Gradle: sh 'mvn test'.
+
+Publish results with junit '**/target/*.xml'.
+
+Archive screenshots/logs as artifacts.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. How do you handle credentials in Jenkins?
+
+Store in Jenkins Credentials Manager.
+
+Access in pipeline using withCredentials block.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8. How do you run jobs on different machines (agents)?
+
+Configure Jenkins with Controller-Agent architecture.
+
+Use agent { label 'linux' } in Jenkinsfile.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9. What are some commonly used Jenkins plugins?
+
+Git, GitHub, GitLab, JUnit, TestNG, Allure, Slack, Email-ext, Pipeline.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10. How do you handle flaky tests in Jenkins?
+
+Retry using retry(n) block in pipeline.
+
+Run tests in parallel for faster feedback.
+
+Stabilize environment (timeouts, waits).
