@@ -372,3 +372,59 @@ Every primitive type has a corresponding wrapper class:
 Uses 
 Wrapper classes allow us to parse Strings to numbers and store primitive values in collections like ArrayList or HashMap,
 because collections require objects, not primitives
+
+----------------------------------------------------------------------------------------------------------------------------------
+28. 1️⃣ Access Modifiers
+Modifier	Access Level
+public	Accessible everywhere
+private	Accessible only within the class
+protected	Accessible in same package + subclasses
+default/no modifier	Accessible in same package only
+Tip: Use private for variables → provide getter/setter. Use protected for inheritance scenarios.
+
+2️⃣ this Keyword
+Refers to current object
+Differentiates instance & local variables
+Can call another constructor
+Example:
+
+public class Demo {
+    int id;
+    Demo(int id) {
+        this.id = id; // assigns local id to instance variable
+    }
+}
+
+3️⃣ super Keyword
+Refers to parent class object
+Used to call parent constructor or parent method
+
+5️⃣ String Pool & intern()
+
+String Pool: Memory for reusing string literals
+String s1 = "Hello"; // pool
+String s2 = "Hello"; // same object
+
+new String() → creates new heap object
+intern() → returns string from pool
+Example:
+String s3 = new String("Hello").intern(); // pool reference
+
+Tip: Strings are immutable, using pool saves memory & ensures reuse.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+29. Java Collections 
+
+Purpose: Store, manage, and manipulate groups of objects efficiently
+List → ordered, duplicates, indexed
+Set → unique, unordered
+Map → key-value, unique keys
+ArrayList vs LinkedList → fast read vs fast insert/delete
+HashMap/TreeMap → unordered vs sorted
+Generics → type safety, no casting
+-----------------------------------------------------------------------------------------------------------------------------------------
+30. 
+
+
+
+
