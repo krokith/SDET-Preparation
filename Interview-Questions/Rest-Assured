@@ -103,8 +103,216 @@ String userId = given().when().post("/users")
 .then().extract().path("id");
 
 given().pathParam("id", userId).when().get("/users/{id}").then().statusCode(200);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+13. Idempotent – Definition
 
+An API is idempotent if making the same request multiple times has the same effect as making it once.
+Server state does not change with repeated requests.
+Where Do We Use It?
+HTTP Methods:
+GET → fetch data
+PUT → update/replace resource
+DELETE → delete resource
+Not idempotent: POST → creates new resources
+Why Do We Use Idempotent APIs in Testing?
+Reliability: Re-running tests won’t break server state.
+Retry-safe: Failed requests can be retried without creating duplicates.
+CI/CD automation: Ensures consistent test results when tests run repeatedly.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-✅ Now you have 10 core + 2 advanced questions that cover both basics & senior-level challenges.
+1. Basics
 
-👉 Do you also want me to make a one-page cheat sheet (all these questions + answers in crisp bullet points) so you can revise before interviews?
+Q: What is Rest Assured, and why do we use it for API automation?
+👉 Rest Assured is a Java library for testing REST APIs.
+
+Built-in DSL makes API testing simpler than using raw HTTP libraries.
+
+Can be easily integrated with TestNG/JUnit, Maven, CI/CD.
+
+Strong support for JSON/XML parsing and assertions.
+
+Q: How do you set it up?
+👉 Add Maven dependency and integrate with TestNG/JUnit.
+
+<dependency>
+  <groupId>io.rest-assured</groupId>
+  <artifactId>rest-assured</artifactId>
+  <version>5.3.0</version>
+  <scope>test</scope>
+</dependency>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. HTTP Methods
+
+Q: What are idempotent methods in REST?
+👉 Methods that give the same result no matter how many times you call them.
+
+Examples: GET, PUT, DELETE.
+
+POST is not idempotent.
+
+Q: Difference between PUT and POST?
+
+PUT → Replace or create a resource at a specific URI (idempotent).
+
+POST → Create a new resource (non-idempotent).
+
+Q: When to use PATCH?
+👉 Partial update of a resource (not idempotent).
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Request Specification
+
+Q: How do you handle BaseURI, headers, and auth across tests?
+👉 Use RequestSpecification in a BaseRequest class.
+
+@BeforeClass
+public void setup() {
+    RestAssured.baseURI = "https://api.example.com";
+    request = RestAssured.given()
+              .header("Content-Type", "application/json")
+              .auth().oauth2("token123");
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q: How do you pass query and path params?
+
+request.queryParam("status", "active")
+       .pathParam("id", 101)
+       .get("/users/{id}");
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Response Handling
+
+Q: How do you extract values from JSON?
+
+String name = response.jsonPath().getString("data.name");
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q: How do you log request/response?
+
+given().log().all()
+.when().get("/users")
+.then().log().all();
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Assertions
+Q: How do you validate status code and body?
+
+response.then().statusCode(200)
+        .body("name", equalTo("Rokith"));
+
+Q: How do you perform JSON Schema validation?
+
+response.then().body(matchesJsonSchemaInClasspath("user-schema.json"));
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. Serialization / Deserialization
+
+Q: What is it and why?
+👉 Serialization = POJO → JSON.
+👉 Deserialization = JSON → POJO.
+
+Helps avoid hardcoding JSON strings, keeps tests maintainable.
+
+// Deserialization
+User user = response.as(User.class);
+Assert.assertEquals(user.getName(), "Rokith");
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. Data-Driven Testing
+Q: How do you parameterize tests?
+
+@DataProvider
+public Object[][] getData() {
+    return new Object[][] { {"Rokith"}, {"Kumar"} };
+}
+
+@Test(dataProvider = "getData")
+public void createUser(String name) {
+    request.body("{\"name\":\"" + name + "\"}")
+           .post("/users");
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8. Error Handling & Retry
+Q: How do you handle flaky APIs?
+👉 Implement retry for idempotent APIs.
+
+for (int i = 0; i < 3; i++) {
+    response = request.get("/users/1");
+    if (response.statusCode() == 200) break;
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9. Advanced Validations
+Q: How do you extract values for chaining?
+String userId = response.jsonPath().getString("id");
+request.get("/users/" + userId);
+Q: How do you validate lists?
+response.then().body("users.name", hasItems("Alice", "Bob"));
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10. Framework Design
+Q: How do you design a Rest Assured framework?
+👉 Layers:
+
+BaseRequest (setup)
+Utils (helpers like Retry, JSON reader)
+Tests (TestNG classes)
+Config (env-specific properties)
+Reports (Allure/Extent)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11. End-to-End Scenarios
+
+Q: How do you validate API + DB?
+👉 Call API → fetch DB result → compare.
+
+String dbName = jdbc.query("SELECT name FROM users WHERE id=1");
+Assert.assertEquals(apiName, dbName);
+
+Q: How do you combine UI + API?
+👉 Create resource via API → validate on UI with Selenium.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12. Security & Auth
+
+Q: How do you test APIs with OAuth2?
+
+given().auth().oauth2("access_token").get("/users");
+
+Q: How do you handle session cookies?
+
+Cookie cookie = response.getDetailedCookie("JSESSIONID");
+given().cookie(cookie).get("/dashboard");
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13. Schema & Contract Testing
+
+Q: What is contract testing?
+👉 Ensuring API response matches the agreed structure (schema).
+
+Q: How do you validate schema?
+👉 Use JSON Schema validation (matchesJsonSchemaInClasspath).
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14. CI/CD Integration
+Q: How do you run Rest Assured tests in Jenkins?
+👉 Add TestNG/Maven job → run mvn test → publish reports.
+
+Q: How do you generate reports?
+👉 Use Allure/Extent Reports integration with TestNG.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15. Best Practices
+
+Q: How do you avoid flaky API tests?
+Use idempotent APIs in retry.
+Add assertions on stable fields (not timestamps).
+Handle timeouts and retries.
+
+Q: Why is idempotency important in testing?
+👉 Ensures tests give consistent results even if re-run multiple times.
+-----------------------------------------------------------------------------------------------------------------------------------
+16.there are multiple ways to parse the JSON
+
+Directly from Response (status, headers, body).
+Using JsonPath for JSON field extraction.
+Using then().extract() for clean chaining.
+Using POJOs (deserialization) for structured data.
