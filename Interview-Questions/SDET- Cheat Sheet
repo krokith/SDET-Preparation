@@ -1,0 +1,97 @@
+SDET Interview Visual Cheat Sheet – Plan
+1️⃣ Format
+
+Single-page or double-page A4 PDF
+
+Sections separated by colors / icons / boxes for quick scanning
+
+Minimal text, focus on keywords, memory tricks, and short examples
+
+Include arrows / flow diagrams for processes like WebDriver flow, Waits, Factory, Listeners
+
+2️⃣ Sections to Include
+A. OOP Concepts in Framework
+
+Encapsulation: Hide locators → POM
+
+Inheritance: Reuse BaseTest methods
+
+Abstraction: loginPage.login(user, pass)
+
+Polymorphism: Overload login, override openBrowser()
+
+B. Selenium Basics
+
+Components: IDE, RC, WebDriver, Grid
+
+Flow: Test → WebDriver → Browser Driver → Browser → Response
+
+Core Features: Actions, Alerts, Frames, Windows/Tabs, Select
+
+C. Waits
+
+Hard / Implicit / Explicit / Fluent
+
+Icons for stopwatch, global timer, condition check, polling
+
+D. Exceptions
+
+Checked vs Unchecked vs Custom
+
+Try-catch / throws / finally / finalize
+
+Visual: red “error” vs yellow “warning” vs green “handled”
+
+E. Collections
+
+ArrayList / LinkedList / HashSet / HashMap
+
+Mini table with access, insert/delete, memory
+
+F. Strings
+
+Immutable vs StringBuilder vs StringBuffer
+
+Pool vs Heap representation (small diagram)
+
+G. Design Patterns
+
+Singleton → 1 instance
+
+Factory → Browser generator
+
+POM → Page classes
+
+Data-driven → multiple inputs
+
+H. Misc Java
+
+Static, Final / Finally / Finalize
+
+Constructors, Garbage Collector, Object class, Typecasting
+
+Maven commands
+
+I. Flaky Test Handling
+
+Explicit waits, isolate tests, stable data, retry logic, logging
+
+Visual flow: test passes/fails arrows → retry/resolve
+
+3️⃣ Visual Elements
+
+Icons: Robot hand → Actions, Popup → Alerts, Browser → Windows/Tabs
+
+Tables: Collections, OOP, Strings differences
+
+Flow diagrams: WebDriver command flow, Wait types, Factory creation
+
+Highlight: Keywords for quick recall (like “Encapsulation → POM locators”)
+
+4️⃣ Tools for PDF
+
+Canva, Figma, Miro → for diagrams + icons
+
+Export as PDF high-quality
+
+Use bold & color coding for fast scanning
