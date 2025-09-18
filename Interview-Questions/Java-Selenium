@@ -98,20 +98,20 @@ List (ArrayList): Ordered, allows duplicates (e.g., web elements).
 Set (HashSet): Unique items (e.g., error messages).
 Map (HashMap): Key-value pairs (e.g., test data).
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-5. ArrayList vs LinkedList
-ArrayList
-Data Structure: Uses a dynamic array internally.
-Access Time: O(1) for random access (fast lookups by index).
-Insert/Delete: O(n) in worst case (shifting required when inserting/removing in the middle).
-Best Use Case: When you need frequent access/iteration and fewer insertions/deletions.
+5.ArrayList
+
+Resizable array implementation.
+Fast random access (O(1) by index).
+Slow insert/delete in middle (O(n) due to shifting).
+Less memory overhead.
+Best when you need more reads/iterations, fewer modifications.
 
 LinkedList
-Data Structure: Uses a doubly linked list internally.
-Access Time: O(n) for random access (must traverse nodes).
-Insert/Delete: O(1) if node reference is known (no shifting required).
-Best Use Case: When you need frequent insertions/deletions, especially in the middle.
-
-"ArrayList is better for fast random access, while LinkedList is better for frequent insertions and deletions."
+Doubly linked list implementation.
+Slow random access (O(n) traversal).
+Fast insert/delete (O(1) if node reference is known, no shifting).
+More memory (stores data + pointers).
+Best when you need frequent insertions/deletions.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 6.  What is PageObjectModel?
 
@@ -157,9 +157,18 @@ Fluent wait
 A type of explicit wait with polling frequency and ability to ignore exceptions.
 
 Hard waits like Thread.sleep() are less efficient and should be avoided unless absolutely necessary
+
+ii) Hard wait (Thread.sleep) pauses execution for a fixed time, always waits, and is not recommended.
+Implicit wait sets a global polling time, where WebDriver waits up to that time for elements to appear, moving on as soon as they’re found. 
+We use implicit waits for general synchronization and avoid hard waits except in rare debugging cases.
+All three Waits - definitions
+we have different types of waits. Hard wait (Thread.sleep) simply pauses for a fixed time, but it’s not recommended since it always waits even if not needed. 
+Implicit wait is set once at the start and acts as a global timeout for finding elements. Explicit wait is more powerful—it waits for specific conditions like visibility or clickability of an element.
+Fluent wait is an advanced form of explicit wait where we can define polling frequency and exceptions to ignore. 
+In practice, we usually set a small implicit wait globally and use explicit or fluent waits for handling dynamic elements
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-9.  Abstract class vs Inheritance 
+9.  Abstract class vs interface 
 Abstract Class
 A class declared with the keyword abstract.
 Can have both abstract methods (no body) and concrete methods (with implementation).
@@ -175,11 +184,13 @@ abstract class Animal {
     }
 }
 
-Inheritance
+interface
 A contract that defines a Set of abstract methods which a class has to implement in it 
 its a Blueprint 
 Support multiple inheritance
-Access modifier are public
+Access modifier are public 
+
+even Webdriver is a Interface because it has lots of predefined browser actions where we could use it instantly
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 10. what are Constrcutors?
@@ -199,10 +210,15 @@ Exceptions : some unexpected events which distrubs the flow of execution, which 
 Types 
 Checked Exceptions(Compile time) -  must be handled try catch and throws - eg: IO exceptions,SQL Exceptions
 Unchecked Exceptions(Runtime) -  Occurs at Runtime only - eg : Nullpointer Exception,ArrayIndexOut of Bond
+
+Checked exceptions are forced by compiler because they deal with external resources, e.g., file, DB, network. 
+Unchecked exceptions happen at runtime due to code errors, e.g., null pointers or invalid array access.”
+
+“We handle checked exceptions with try-catch or throws, but unchecked exceptions are usually fixed in the code.”
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 12. Exception Handling
-The Exception Handling make sures that the Current Test Script doent abrutly fail due to some unwanted flow of events
+The Exception Handling make sures that the Current Test Script doesn't abrutly fail due to some unwanted flow of events
 so we use try catch finally block or throws to Handle the exceptions 
 
 i) How do you design a custom exception for a test framework?
@@ -277,6 +293,9 @@ String → Immutable; once created, value cannot change. Every modification crea
 StringBuffer → Mutable and thread-safe, but slower due to synchronization.
 StringBuilder → Mutable and faster, but not thread-safe.
 Use String for constants, StringBuilder for fast modifications, and StringBuffer in multi-threaded contexts.
+
+Strings are immutable and stored in the string pool for security, memory efficiency, and thread safety. 
+StringBuilder is mutable and fast (heap only), while StringBuffer is mutable and thread-safe for multi-threaded operations
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 20. Difference between JDK, JRE, JVM
@@ -307,4 +326,49 @@ JavaScript-based automation frameworks (like Cypress or Playwright) are preferre
 have built-in waits, simpler setup, and provide integrated reporting.
 Java-Selenium is powerful, but JS frameworks reduce flakiness and speed up development for front-end testing.
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-25. 
+25. Abstract Classes
+
+Definition: Class with abstract methods (no body) + concrete methods (with body).
+
+Why use:
+
+Reuse common code (setup/teardown)
+Force child classes to implement required methods
+Maintain framework consistency
+Example: BaseTest with setup(), tearDown(), and abstract runTest().
+Key: Child class implements abstract methods, can directly use concrete methods.
+Interview Tip:
+“Abstract classes allow partial implementation + enforce structure, unlike normal base classes where all methods are implemented.”
+
+3. Inheritance in Java
+
+Types: Single, Multilevel, Hierarchical.
+Multiple inheritance with classes → not allowed.
+Multiple interfaces → allowed.
+Example in Selenium:
+class Test extends BaseTest implements ITestListener, IDriverFactory {}
+Why: Combine setup/teardown (BaseTest) + listeners + driver creation without diamond problem.
+
+4. Interfaces
+
+Purpose: Define a contract (methods without body) that must be implemented.
+Usage in Selenium:
+Listeners: React to test events (onTestStart, onTestFailure).
+Factories: Provide WebDriver objects dynamically.
+Benefit: Allows multiple behaviors without multiple class inheritance.
+
+5. Selenium Components
+
+Selenium IDE → Record & playback tool
+Selenium RC → Older, now deprecated
+Selenium WebDriver → Modern API for browser control
+Selenium Grid → Parallel/distributed test execution
+---------------------------------------------------------------------------------------------------------------------------------
+
+27. Wrapper Class
+
+Definition: Classes that wrap primitive data types (int, boolean, etc.) into objects.
+Every primitive type has a corresponding wrapper class:
+Uses 
+Wrapper classes allow us to parse Strings to numbers and store primitive values in collections like ArrayList or HashMap,
+because collections require objects, not primitives
