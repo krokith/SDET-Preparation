@@ -1,3 +1,142 @@
+Selenium Questions
+
+1️⃣ Selenium Core Concepts
+
+Q1: What is Selenium WebDriver, and how does it differ from Selenium RC?
+A: Selenium WebDriver directly interacts with the browser using browser-specific drivers, while Selenium RC requires a server to inject JavaScript for browser interaction. WebDriver is faster, more stable, and supports modern browsers.
+
+Q2: Explain the different types of waits in Selenium.
+A:
+
+Implicit Wait: Sets a default wait time for the WebDriver to find elements.
+
+Explicit Wait: Waits for a specific condition for a specific element (WebDriverWait + ExpectedConditions).
+
+Fluent Wait: Similar to Explicit Wait but allows polling frequency and ignores exceptions.
+
+Q3: How do you handle dynamic elements in Selenium?
+A: Use dynamic locators with strategies like XPath contains(), starts-with(), CSS selectors, or parameterized locators. Example:
+
+driver.findElement(By.xpath("//button[contains(text(),'Submit')]"))
+
+2️⃣ Advanced Selenium Topics
+
+Q1: How do you handle multiple browser windows or tabs?
+A: Switch between windows using driver.getWindowHandles() and driver.switchTo().window(windowHandle).
+
+Q2: How do you handle alerts and pop-ups?
+A: Use Selenium Alert API:
+
+Alert alert = driver.switchTo().alert();
+alert.accept();   // OK
+alert.dismiss();  // Cancel
+alert.getText();  // Read alert text
+
+
+Q3: How do you perform drag-and-drop actions?
+A: Use Actions class:
+
+Actions actions = new Actions(driver);
+actions.dragAndDrop(sourceElement, targetElement).perform();
+
+3️⃣ Test Automation Frameworks
+
+Q1: Describe the architecture of a test automation framework.
+A: A robust framework typically includes:
+
+Test Scripts: Actual test cases
+
+Page Objects: Encapsulate UI elements
+
+Test Data Layer: Externalized data (Excel/JSON/DB)
+
+Utilities: Common helper methods
+
+Reporting: Logs and reports (TestNG, ExtentReports)
+
+Q2: How do you implement data-driven testing?
+A: Use TestNG @DataProvider, external files (Excel/JSON), or database queries to supply multiple test inputs to the same test method.
+
+Q3: How do you handle test reporting?
+A: Use TestNG reports, ExtentReports, or custom logging. Capture screenshots on failures for detailed reporting.
+
+4️⃣ CI/CD and Version Control
+
+Q1: How do you integrate Selenium tests into CI/CD?
+A: Configure Jenkins/ GitLab CI to:
+
+Checkout code from Git
+
+Build project
+
+Run Selenium tests
+
+Generate and archive test reports
+
+Q2: How do you manage tests across environments?
+A: Use configuration files or environment variables to switch URLs, credentials, or browser types dynamically.
+
+Q3: How do you use Git in automation projects?
+A: Maintain feature branches, commit test scripts, pull latest changes before push, and manage merge conflicts properly.
+
+5️⃣ Problem-Solving and Debugging
+
+Q1: How do you handle flaky tests?
+A:
+
+Use explicit waits for dynamic elements
+
+Ensure stable locators
+
+Isolate tests
+
+Apply retry logic in TestNG (IRetryAnalyzer) or CI
+
+Q2: How do you debug Selenium failures?
+A:
+
+Use browser developer tools (Inspect, console logs)
+
+Capture screenshots/logs
+
+Analyze exception stack trace
+
+Run tests step-by-step
+
+Q3: How do you optimize Selenium test execution?
+A:
+
+Run tests in parallel using TestNG or Grid
+
+Reuse browser sessions
+
+Avoid unnecessary waits
+
+Use headless browsers in CI
+
+6️⃣ Performance and Scalability
+
+Q1: How do you perform performance testing using Selenium?
+A: Measure page load or method execution time using:
+
+long start = System.currentTimeMillis();
+// code
+long end = System.currentTimeMillis();
+System.out.println("Execution time: " + (end - start));
+
+
+Q2: How do you scale Selenium tests?
+A: Use Selenium Grid to run tests in parallel on multiple browsers and machines.
+
+Q3: How do you measure page load performance in automation?
+A: Use JavaScript Executor:
+
+Long loadTime = (Long)((JavascriptExecutor)driver)
+        .executeScript("return performance.timing.loadEventEnd - performance.timing.navigationStart;");
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
 Selenium Scripts 
 
 
