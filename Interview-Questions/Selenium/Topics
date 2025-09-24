@@ -1,0 +1,58 @@
+1️⃣ Actions Class
+
+Purpose: Handles complex user interactions like mouse and keyboard actions.
+
+Common Use Cases:
+
+Mouse hover (moveToElement)
+
+Drag & drop (dragAndDrop)
+
+Right click / Context click (contextClick)
+
+Double click (doubleClick)
+
+Example:
+
+Actions actions = new Actions(driver);
+actions.moveToElement(element).click().perform();
+
+2️⃣ Select Class
+
+Purpose: Works with dropdown elements (<select>).
+
+Common Use Cases:
+
+Select by visible text, index, or value
+
+Get all options
+
+Example:
+
+Select dropdown = new Select(driver.findElement(By.id("country")));
+dropdown.selectByVisibleText("India");
+
+3️⃣ JavaScriptExecutor
+
+Purpose: Execute JavaScript directly in browser when Selenium alone cannot interact with elements.
+
+Common Use Cases:
+
+Scroll into view
+
+Click elements when normal click fails
+
+Get browser performance metrics
+
+Example:
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+Multiple Window Handles: Selenium allows switching between multiple browser windows or tabs using driver.getWindowHandles() and driver.switchTo().window(windowHandle). Use it when tests involve pop-ups, new tabs, or child windows.
+
+Alert Handling: Selenium handles JavaScript alerts, confirmations, and prompts using driver.switchTo().alert(). You can accept(), dismiss(), or read alert text with getText(). Use it when the application shows pop-up messages requiring user action.
+
+IFrames: Selenium interacts with elements inside iframes by switching context using driver.switchTo().frame(). Use it when elements are inside <iframe> tags, otherwise Selenium cannot access them. After interaction, switch back to the main content using driver.switchTo().defaultContent().
+
+
