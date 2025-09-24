@@ -320,6 +320,12 @@ ensure stable test data, and if needed, add retry logic in CI. Proper logging al
 Typecasting is converting one data type to another. In test automation, I often use it when working with API responses, Excel data, or Selenium UI values. 
 For example, an API might return a value as 12.0 (double), but my validation expects an integer 12, so I cast it. Similarly, while validating product prices in e-commerce UI, 
 I might get ₹199.99 as a string, convert it to double, and then cast to int for comparison This helps align actual values with expected values in test cases
+
+For eg : String numericPart = priceStr.replace("₹", "").trim();
+        // Step 3: Convert to double
+        double priceDouble = Double.parseDouble(numericPart)
+        // Step 4: Cast to int
+        int priceInt = (int) priceDouble;
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 24. why javaScript is better than Java-Selenium?
 JavaScript-based automation frameworks (like Cypress or Playwright) are preferred for modern web apps because they are faster, handle dynamic content better,
@@ -424,7 +430,95 @@ HashMap/TreeMap → unordered vs sorted
 Generics → type safety, no casting
 -----------------------------------------------------------------------------------------------------------------------------------------
 30. 
+Black Box Testing 🎯
+Tester doesn’t see the code.
+Focus: functional behavior (inputs → outputs).
+Example: Selenium UI tests, API tests.
+White Box Testing 🎯
+Tester knows the internal code/logic.
+Focus: code paths, conditions, loops.
+Example: Unit tests, code coverage, JUnit/TestNG tests.
+Gray Box Testing 🎯
+Partial knowledge of code.
+Combines black & white box.
+Example: API tests with knowledge of database structure.
 
+👉 In automation:
+UI automation → Black Box
+Unit test frameworks → White Box
+Integration/service tests → Gray Box
+-----------------------------------------------------------------------------------------------------------------------------------------
+31. what is Unit test
 
+A Unit Test is a type of software test that verifies the correctness of a smallest independent piece of code (usually a method, function, or class) in isolation from the rest of the system.
+It checks whether that unit produces the expected output for given inputs.
+It is usually written and run by developers.
+It is considered White Box Testing.
 
+Goal → Catch bugs early, ensure code reliability, and make refactoring safe.
+👉 Example: Testing if a method add(2,3) correctly returns 5.
+In a real automation framework, unit tests focus on small building blocks (utilities, parsers, helpers, custom wait methods, data readers, API wrappers).
+This makes the framework reliable before plugging it into bigger E2E Selenium/Appium test cases.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+32.  Assertions and its type 
+
+Hard vs Soft Assertions (Selenium/TestNG)
+Hard Assertion ✅
+Stops test execution immediately on failure.
+Use for critical checks (page title, essential elements).
+
+Example:
+assertEquals(driver.getTitle(), "Home Page");
+assertTrue(element.isDisplayed());
+assertNotNull(element);
+fail("Critical element missing!");
+
+Soft Assertion ✅
+
+Continues test execution even if assertion fails; reports all failures at the end.
+Use for multiple UI validations in one test.
+Example:
+
+SoftAssert soft = new SoftAssert();
+soft.assertEquals(driver.getTitle(), "Home Page");
+soft.assertTrue(element.isDisplayed());
+soft.assertNotNull(element);
+soft.fail("Critical element missing!");
+soft.assertAll(); // marks test as failed if any soft assertion failed
+Key Tip:
+Hard → stop immediately
+Soft → continue and report all
+-----------------------------------------------------------------------------------------------------------------------------------------
+33. Functional Testing
+
+What it is: Tests features & business requirements → “Does it work?”
+Focus: Functionality, workflows, API responses, user actions
+Example: Login works, search returns correct results
+Type: Usually black-box testing
+
+Non-Functional Testing
+What it is: Tests performance & quality attributes → “How well does it work?”
+Focus: Speed, scalability, security, usability, reliability
+Example: Page loads in <2s, app supports 1000 users, secure login
+Type: Performance, Load, Stress, Security, Usability testing
+
+💡 Memory Tip:
+Functional = Features
+Non-Functional = Quality
+-----------------------------------------------------------------------------------------------------------------------------------------
+34. 
+Performance Testing in JUnit (Summary)
+Purpose: Check if a method or code executes within an expected time.
+Tools in JUnit:
+assertTimeout(Duration, Executable) → Fails if code exceeds max allowed time.
+System.currentTimeMillis() → Measure execution time manually and assert threshold.
+Use Case: Quick unit-level performance checks (method execution, page load time).
+
+Limitation: Not for large-scale load/stress testing → Use JMeter, Gatling, or Locust for that.
+💡 Memory Tip:
+JUnit = Unit-level performance check
+Load/Stress = Dedicated tools
+-----------------------------------------------------------------------------------------------------------------------------------------
+35. 
 
