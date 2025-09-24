@@ -38,11 +38,13 @@ gh pr close <PR_number> --delete-branch
 git branch -d feature-branch        # delete branch locally (safe delete)
 git branch -D feature-branch        # force delete locally
 git push origin --delete feature-branch   # delete branch from remote
+-----------------------------------------------------------------------------------------------------------------------------
+7. Keep your feature branch updated with the latest main:
 
-
-
-
-
+git checkout feature-branch
+git fetch origin
+git rebase origin/main
+-----------------------------------------------------------------------------------------------------------------------------
 
 
 
