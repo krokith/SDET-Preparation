@@ -316,3 +316,101 @@ Directly from Response (status, headers, body).
 Using JsonPath for JSON field extraction.
 Using then().extract() for clean chaining.
 Using POJOs (deserialization) for structured data.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What is RestAssured?
+
+RestAssured is a Java library used for API automation testing, supporting BDD-style given-when-then syntax for testing RESTful APIs.
+
+2️⃣ How do you perform CRUD operations?
+
+GET → .get("/endpoint")
+
+POST → .body(payload).post("/endpoint")
+
+PUT/PATCH → .body(payload).put("/endpoint")
+
+DELETE → .delete("/endpoint")
+Always validate status codes, response body, headers.
+
+3️⃣ How do you validate API responses?
+
+Status code: .statusCode(200)
+
+Response body: .body("field", equalTo(value))
+
+Headers: .header("Content-Type", equalTo("application/json"))
+
+Response time: .time(lessThan(2000L))
+
+For complex validation: extract response into POJO and use TestNG/JUnit assertions.
+
+4️⃣ How do you extract values from responses?
+
+jsonPath() → response.jsonPath().getString("title")
+
+path() shortcut → response.path("userId")
+
+List extraction → response.jsonPath().getList("id")
+
+POJO mapping → response.as(Post.class)
+
+Inline extraction → .extract().body().jsonPath().getString("field")
+
+5️⃣ What is Serialization & Deserialization?
+
+Serialization → Java object → JSON (used for request body)
+
+Deserialization → JSON → Java object (used for response handling)
+
+Libraries: Jackson (default), Gson
+
+6️⃣ How do you handle authentication?
+
+Basic Auth → .auth().basic(user, pass)
+
+Bearer Token → .header("Authorization", "Bearer " + token)
+
+OAuth2 → .auth().oauth2(token)
+
+7️⃣ What is Mock API Testing?
+
+Simulating API responses when the real API is unavailable or unstable, useful for testing front-end workflows or dependent services. Tools: WireMock, Postman Mock Server, MockServer.
+
+8️⃣ How do you do Data-Driven API Testing?
+
+Use TestNG DataProvider or external JSON/Excel files
+
+Iterate multiple payloads → validate status code + response body for each
+
+9️⃣ How do you integrate RestAssured with frameworks?
+
+TestNG/JUnit for test execution
+
+ExtentReports / Allure for reporting
+
+BaseTest class for common setup
+
+Utility classes for reusable GET/POST/PUT/DELETE methods
+
+🔟 Common Interview Scenarios
+
+POST → GET → Update → Delete (CRUD flow)
+
+Extracting dynamic IDs / tokens for chained requests
+
+Negative testing: invalid payloads, 4xx/5xx responses
+
+Validating headers, status codes, response time
+
+Using mock API when service is down
+
+11️⃣ Example of Given-When-Then
+given()
+    .contentType(JSON)
+    .body(payload)
+.when()
+    .post("/posts")
+.then()
+    .statusCode(201)
+    .body("title", equalTo("foo"));
