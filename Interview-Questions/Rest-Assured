@@ -414,3 +414,12 @@ given()
 .then()
     .statusCode(201)
     .body("title", equalTo("foo"));
+--------------------------------------------------------------------------------------------------------
+
+Request and Resposne Builder 
+
+“In RestAssured, RequestBuilder is used to programmatically build an HTTP request with dynamic headers, query/path parameters, content type, and body before sending it. It’s very useful in frameworks for creating reusable request templates instead of hardcoding values.
+
+ResponseBuilder is used to construct or mock a Response object without actually hitting the real API. This is helpful in unit testing, negative testing, or when an external service is down, as we can simulate API responses.
+
+In short, RequestBuilder helps in building dynamic requests, and ResponseBuilder helps in mocking or custom responses, making the framework more robust, reusable, and testable.”
