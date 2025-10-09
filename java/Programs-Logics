@@ -465,5 +465,30 @@ String After_rev =  new StringBuilder(after).reverse().toString();
         System.out.print(After_rev+mid+before_rev);
     }
 }
-   
+   -------------------------------------------------------------------------------------------------
+
+18. //a2b3c5 
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+      String str = "aaabbbbccccc";
+      
+      String result = "";
+      int count = 1;
+       
+       for(int i=0;i<str.length();i++)
+       {
+           if(i<str.length()-1 &&str.charAt(i)==str.charAt(i+1))
+           {
+               count++;
+           }else{
+               result = result+str.charAt(i)+count;
+               count =1;
+           }
+       }
+       System.out.print(result);
+    }
+}
+
 
