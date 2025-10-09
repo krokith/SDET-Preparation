@@ -259,6 +259,7 @@ we can call system.gc to cleanup the unused memories
 15. What is static ?
 The static keyword in Java is mainly used for memory management. It can be applied to variables, methods, blocks, and nested classes
  Anything declared static belongs to the class rather than to a specific object, which means it is shared across all instances.
+Static variables → There is only one shared copy for the entire class.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 16.  What is Object class?
