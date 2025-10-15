@@ -512,5 +512,28 @@ class Main{
         System.out.print(result);
     }
 }
+-------------------------------------------------------------------------------------------------------------------------------------------
+20. FInd the Missing NUmber 
 
-
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        int[] arr = {1, 2, 4, 5, 6};
+        
+        int n = 6;
+        int sum = n*(n+1)/2;
+        int arraysum =0;
+        
+        for(int num : arr)
+        {
+            arraysum = arraysum+num;
+        }
+        
+        int missing_num = sum-arraysum;
+        System.out.print(missing_num);
+     arr[2] =   missing_num;
+     System.out.println();
+     System.out.print(Arrays.toString(arr));
+     
+    }
+}
