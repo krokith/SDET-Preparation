@@ -491,4 +491,26 @@ class Main {
     }
 }
 
+-------------------------------------------------------------------------------------------------------------------------------------------
+19. Remove Duplicates without any Functions
+
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        String str = "aaaabbbbcccccddddeeeee";
+        String result ="";
+        
+        for(int i=0;i<str.length();i++)
+        {
+            String ch = " "+str.charAt(i);
+            if(result.contains(ch))
+            {
+                continue;
+            }
+            result = result+ch;
+        }
+        System.out.print(result);
+    }
+}
+
 
