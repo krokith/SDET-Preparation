@@ -155,6 +155,10 @@ Waits for a specific condition to be met before proceeding.
 More powerful and flexible than implicit wait.
 Fluent wait 
 A type of explicit wait with polling frequency and ability to ignore exceptions.
+Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+        .withTimeout(Duration.ofSeconds(30))      // Maximum wait time
+        .pollingEvery(Duration.ofSeconds(5))      // Check for condition every 5 seconds
+        .ignoring(NoSuchElementException.class);  /
 
 Hard waits like Thread.sleep() are less efficient and should be avoided unless absolutely necessary
 
