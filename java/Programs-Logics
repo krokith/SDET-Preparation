@@ -564,6 +564,39 @@ class Main {
         // Step 4: Print sorted entries
         for (Map.Entry<String, Integer> entry : entryList) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
+
+
+----------------------------------------------------------------------------------------------------------------------
+22. Find the closet pair to the target
+
+/*Input :{-6,-3, -2, //28, 29, 30, 57} X = 54 Output : -3 and 57*/
+
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        int[] arr = {-6,-3, -2,28, 29, 30, 57};
+        int X = 54;
+        int a =0;
+        int b =0;
+         int diff = Integer.MAX_VALUE;
+        
+        for(int i=0;i<arr.length;i++)
+        {
+            for(int j=i+1;j<arr.length;j++)
+            {
+                int sum= arr[i]+arr[j];
+                int currdiff = Math.abs(X-sum);
+                if(currdiff<diff)
+                {
+                    a = arr[i];
+                    b = arr[j];
+                    System.out.print("New closest pair found: " + a + " and " + b);
+                }
+            }
+        }
+        System.out.println("\nClosest pair is: " + a + " and " + b);
+    }
+}
         }
     }
 }
