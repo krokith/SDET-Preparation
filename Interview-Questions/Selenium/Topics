@@ -55,4 +55,23 @@ Alert Handling: Selenium handles JavaScript alerts, confirmations, and prompts u
 
 IFrames: Selenium interacts with elements inside iframes by switching context using driver.switchTo().frame(). Use it when elements are inside <iframe> tags, otherwise Selenium cannot access them. After interaction, switch back to the main content using driver.switchTo().defaultContent().
 
+---------------------------------------------------------------------------------------------------
+
+“What WebDriver do you use in your framework? Static or non-static?”
+Perfect 10/10 Answer:
+
+“We use a non-static WebDriver that is managed through ThreadLocal inside a DriverFactory.
+ThreadLocal gives each test thread its own separate WebDriver instance, which makes the framework fully thread-safe and supports parallel execution.
+We never use static WebDriver because it causes session conflicts during parallel runs.”
+
+This answer shows:
+
+Real project experience
+
+Understanding of thread safety
+
+Understanding of framework design
+
+CI/CD readiness
+
 
