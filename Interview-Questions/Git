@@ -46,6 +46,145 @@ git fetch origin
 git rebase origin/main
 -----------------------------------------------------------------------------------------------------------------------------
 
+📘 Git Study Notes – Important Daily Scenarios
+🟦 1. Creating & Managing Branches
+Create a new branch
+git checkout -b feature-branch
+
+Switch to an existing branch
+git checkout branch-name
+
+List branches
+git branch
+
+🟩 2. Adding & Committing Changes
+Stage all changes
+git add .
+
+Stage a specific file
+git add filename
+
+Commit changes
+git commit -m "Meaningful commit message"
+
+🟧 3. Pushing Code to Remote
+Push a new branch to remote
+git push origin feature-branch
+
+Push latest commits
+git push
+
+🟪 4. Raising a Pull Request (PR)
+Using GitHub CLI
+gh pr create --base main --head feature-branch \
+  --title "Feature Title" \
+  --body "Feature Description"
+
+Using GitHub UI
+
+Go to repo → Compare & Pull Request → Create PR
+
+🟥 5. Keeping Branch Updated (Avoid Conflicts)
+Best practice (Rebase with Main)
+git checkout feature-branch
+git fetch origin
+git rebase origin/main
+
+Alternative (Merge main into your branch)
+git pull origin main
+
+🟫 6. Resolving Merge Conflicts
+Fix conflicts manually → then stage:
+git add <filename>
+
+Continue rebase/merge
+git rebase --continue
+
+Abort rebase if too messy
+git rebase --abort
+
+After rebase, push (force needed)
+git push origin feature-branch --force
+
+🟨 7. Merging PR into Main/Master
+Most common (UI merge)
+
+Click Merge Pull Request → choose:
+
+Squash & Merge
+
+Merge Commit
+
+Rebase & Merge
+
+Using Git CLI (if allowed)
+git checkout main
+git pull origin main
+git merge feature-branch
+git push origin main
+
+🟫 8. Closing or Deleting a PR
+Close a PR
+gh pr close <PR_number>
+
+Close PR + delete branch
+gh pr close <PR_number> --delete-branch
+
+🟤 9. Deleting Branches
+Delete local branch
+git branch -d feature-branch
+git branch -D feature-branch
+
+Delete remote branch
+git push origin --delete feature-branch
+
+🟩 10. Git Stash (Temporary Save)
+git stash
+git stash list
+git stash apply
+git stash pop
+git stash drop
+
+🟦 11. Git Status
+git status
+
+🟧 12. Deleting Files in Git
+git rm filename
+git commit -m "Removed filename"
+git push
+
+🟪 13. Undoing Changes
+Undo last commit (keep your changes)
+git reset --soft HEAD~1
+
+Discard changes in a file
+git checkout -- filename
+
+🟫 14. Viewing Commit History
+git log --oneline --graph --decorate
+
+🟩 15. Daily Workflow Summary
+1. Create branch
+git checkout -b feature-branch
+
+2. Develop → Stage → Commit
+git add .
+git commit -m "message"
+
+3. Push to remote
+git push origin feature-branch
+
+4. Raise PR
+5. Rebase regularly (avoid conflicts)
+git fetch origin
+git rebase origin/main
+git push --force
+
+6. Merge PR
+7. Delete branch
+git branch -d feature-branch
+git push origin --delete feature-branch
+
 
 
 
