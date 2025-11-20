@@ -256,4 +256,38 @@ public class LoginSteps {
     }
 }
 
+3. Writing a  scenario to End-to-End Order Creation and Report Verification Flow
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
+import java.util.List;
+
+public class OrderReportAutomation {
+
+    @Test
+    public void testOrderFlow() {
+
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            driver.manage().window().maximize();
+
+            // 1. Go to Login Page
+            driver.get("https://example.com/login");
+
+            // 2. Login
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")))
+                    .sendKeys("admin");
+            driver.findElement(By.id("password")).sendKeys("password123");
+            driver.findElement(By.id("loginBtn")).click();
+
+            // 3. Validate Home Page Loaded
+            WebElement homePageElement = wait.until(
 
