@@ -257,7 +257,6 @@ public class LoginSteps {
 }
 
 3. Writing a  scenario to End-to-End Order Creation and Report Verification Flow
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -290,4 +289,55 @@ public class OrderReportAutomation {
 
             // 3. Validate Home Page Loaded
             WebElement homePageElement = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("homePageIdentifier"))
+            );
+            Assert.assertTrue(homePageElement.isDisplayed(), "Home page not displayed!");
 
+            // 4. Go to Orders Tab
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("ordersTab"))).click();
+
+            // 5. Place orders for 5 customers
+            String[] customers = {"Ravi", "Priya", "Kumar", "John", "Anu"};
+
+            for (String name : customers) {
+                WebElement nameInput = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(By.id("orderName"))
+                );
+                nameInput.clear();
+                nameInput.sendKeys(name);
+
+                wait.until(ExpectedConditions.elementToBeClickable(By.id("placeOrderBtn"))).click();
+
+                // Wait for order completion indicator
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loadingSpinner")));
+            }
+
+            // 6. Navigate to Reports Tab
+            wait.until(ExpectedConditions.elementToBeClickable(By.id("reportTab"))).click();
+
+            // Ensure Report Table is visible
+            List<WebElement> reportItems = wait.until(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            By.xpath("//table[@id='reportTable']//td")
+                    )
+            );
+
+            // 7. Validate all 5 names appear in report
+            for (String name : customers) {
+
+                boolean found = reportItems.stream()
+                        .anyMatch(element -> element.getText().equalsIgnoreCase(name));
+
+                Assert.assertTrue(found, "Order NOT found in report: " + name);
+            }
+
+            System.out.println("✔ All validations passed successfully.");
+
+        } catch (Exception e) {
+            System.out.println("❌ Test failed due to exception: " + e.getMessage());
+            Assert.fail("Test failed because of an unexpected error.");
+        } finally {
+            driver.quit();
+        }
+    }
+}
