@@ -678,3 +678,26 @@ while (left < right) {
 }
 System.out.println(Arrays.toString(a));
 
+----------------------------------------------------------------------------------------------------------------------------
+26. how to reverse a word without reverse function
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        String str = "my name is rokith kumar";
+        String[] words = str.split(" ");
+        String finalStr = "";
+
+        for (String word : words) {
+            String rev = "";
+            // reverse manually
+            for (int i = word.length() - 1; i >= 0; i--) {
+                rev = rev+word.charAt(i);
+            }
+            finalStr = finalStr+rev + " ";
+        }
+
+        System.out.println(finalStr);
+    }
+}
+
