@@ -701,3 +701,40 @@ class Main {
     }
 }
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+27.  Sort the alphabets and numbers 
+
+//arr = {10, 4, 5, 8, 3, c, 0, a, 7, 8, 20, 44, b};
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+      List<String> list = Arrays.asList("10", "4", "5", "8", "3", "c", "0", "a", "7", "8", "20", "44", "b");
+      
+      List<String> alphabets = new ArrayList<>();
+      List<Integer> numbers = new ArrayList<>();
+      
+      for(String s : list)
+      {
+          if(s.matches("[A-Za-z]"))
+          {
+             alphabets.add(s); 
+          }else{
+              numbers.add(Integer.parseInt(s));
+              
+          }
+      }
+      
+      Collections.sort(alphabets);
+       Collections.sort(numbers);
+      
+      List<String> result = new ArrayList<>();
+      result.addAll(alphabets);
+      for(Integer num : numbers)
+      {
+          result.add(num.toString());
+      }
+        
+       System.out.println(result);
+    }
+}
