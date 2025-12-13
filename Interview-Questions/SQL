@@ -1,0 +1,288 @@
+# SQL Interview Prep – Core Queries & Concepts (SDET)
+
+This document is a **revision-ready Q&A** based on frequently asked SDET interview questions. Each answer is short, clear, and interview-safe.
+
+---
+
+## 1. What does `GROUP BY` do?
+
+**Answer:**
+`GROUP BY` groups rows that have the same values in specified columns and allows aggregate functions to be applied per group.
+
+---
+
+## 2. What does `COUNT(*)` do?
+
+**Answer:**
+`COUNT(*)` counts the number of rows in each group, including rows with NULL values.
+
+---
+
+## 3. Can we use `COUNT(*)` without `GROUP BY`?
+
+**Answer:**
+Yes. If no non-aggregated column is used in `SELECT`, `COUNT(*)` returns the total number of rows in the table.
+
+```sql
+SELECT COUNT(*) FROM employee;
+```
+
+---
+
+## 4. Is this query valid?
+
+```sql
+SELECT department_id, COUNT(*) FROM employee;
+```
+
+**Answer:**
+No. Because `department_id` is not aggregated and not present in `GROUP BY`.
+
+---
+
+## 5. Correct query to find department-wise employee count
+
+```sql
+SELECT department_id, COUNT(*)
+FROM employee
+GROUP BY department_id;
+```
+
+---
+
+## 6. What does this query return?
+
+```sql
+SELECT department_id, COUNT(*)
+FROM employee
+GROUP BY department_id
+HAVING COUNT(*) >= 3;
+```
+
+**Answer:**
+Departments that have **3 or more employees**, along with their employee count.
+
+---
+
+## 7. Difference between `WHERE` and `HAVING`?
+
+**Answer:**
+
+* `WHERE` filters rows **before grouping**
+* `HAVING` filters groups **after grouping**
+
+---
+
+## 8. Find the maximum salary
+
+```sql
+SELECT MAX(salary) FROM employee;
+```
+
+---
+
+## 9. Find employee(s) with maximum salary
+
+```sql
+SELECT *
+FROM employee
+WHERE salary = (SELECT MAX(salary) FROM employee);
+```
+
+**Answer:**
+Returns full details of employee(s) earning the highest salary.
+
+---
+
+## 10. What does `SELECT *` mean?
+
+**Answer:**
+`SELECT *` selects **all columns**, not all rows. Rows are decided by the `WHERE` clause.
+
+---
+
+## 11. What will this query return?
+
+```sql
+SELECT emp_id
+FROM employee
+WHERE salary = 2850;
+```
+
+**Answer:**
+Employee ID(s) of employees whose salary is 2850.
+
+---
+
+## 12. Find the second highest salary
+
+```sql
+SELECT MAX(salary)
+FROM employee
+WHERE salary < (SELECT MAX(salary) FROM employee);
+```
+
+---
+
+## 13. Find employees earning more than average salary
+
+```sql
+SELECT *
+FROM employee
+WHERE salary > (SELECT AVG(salary) FROM employee);
+```
+
+---
+
+## 14. Find employees without a manager
+
+```sql
+SELECT *
+FROM employee
+WHERE manager_id IS NULL;
+```
+
+---
+
+## 15. INNER JOIN – employee name with department name
+
+```sql
+SELECT e.emp_id, e.emp_name, d.department_name
+FROM employee e
+JOIN department d
+ON e.department_id = d.department_id;
+```
+
+---
+
+## 16. LEFT JOIN – employees without department
+
+```sql
+SELECT e.emp_id, e.emp_name
+FROM employee e
+LEFT JOIN department d
+ON e.department_id = d.department_id
+WHERE d.department_id IS NULL;
+```
+
+---
+
+## 17. Department-wise employee count using JOIN
+
+```sql
+SELECT d.department_name, COUNT(e.emp_id)
+FROM department d
+LEFT JOIN employee e
+ON d.department_id = e.department_id
+GROUP BY d.department_name;
+```
+
+---
+
+## 18. Employees earning more than department average
+
+```sql
+SELECT e.emp_id, e.emp_name, e.salary
+FROM employee e
+JOIN (
+    SELECT department_id, AVG(salary) avg_sal
+    FROM employee
+    GROUP BY department_id
+) a
+ON e.department_id = a.department_id
+WHERE e.salary > a.avg_sal;
+```
+
+---
+
+## 19. Key Rules to Remember (Interview Gold)
+
+* GROUP BY contains **columns**, not aggregate functions
+* Every non-aggregated column in SELECT must be in GROUP BY
+* `COUNT(*)` counts rows, not columns
+* `SELECT *` means all columns
+* `HAVING` works on grouped data
+
+---
+
+## 20. One-line Interview Summary
+
+> SQL aggregation is about grouping rows and applying functions, while joins are about combining related data across tables.
+
+---
+
+**Use this file as a quick revision before interviews. Ideal for GitHub storage.**
+
+---
+
+## 📌 All Queries – Quick Reference (Copy/Paste)
+
+```sql
+-- Total employees
+SELECT COUNT(*) FROM employee;
+
+-- Department-wise employee count
+SELECT department_id, COUNT(*)
+FROM employee
+GROUP BY department_id;
+
+-- Departments having 3 or more employees
+SELECT department_id, COUNT(*)
+FROM employee
+GROUP BY department_id
+HAVING COUNT(*) >= 3;
+
+-- Maximum salary
+SELECT MAX(salary) FROM employee;
+
+-- Employee(s) with maximum salary
+SELECT *
+FROM employee
+WHERE salary = (SELECT MAX(salary) FROM employee);
+
+-- Second highest salary
+SELECT MAX(salary)
+FROM employee
+WHERE salary < (SELECT MAX(salary) FROM employee);
+
+-- Employees earning more than average salary
+SELECT *
+FROM employee
+WHERE salary > (SELECT AVG(salary) FROM employee);
+
+-- Employees without manager
+SELECT *
+FROM employee
+WHERE manager_id IS NULL;
+
+-- Employee name with department name (INNER JOIN)
+SELECT e.emp_id, e.emp_name, d.department_name
+FROM employee e
+JOIN department d
+ON e.department_id = d.department_id;
+
+-- Employees without department (LEFT JOIN)
+SELECT e.emp_id, e.emp_name
+FROM employee e
+LEFT JOIN department d
+ON e.department_id = d.department_id
+WHERE d.department_id IS NULL;
+
+-- Department-wise employee count using JOIN
+SELECT d.department_name, COUNT(e.emp_id)
+FROM department d
+LEFT JOIN employee e
+ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+-- Employees earning more than department average
+SELECT e.emp_id, e.emp_name, e.salary
+FROM employee e
+JOIN (
+    SELECT department_id, AVG(salary) avg_sal
+    FROM employee
+    GROUP BY department_id
+) a
+ON e.department_id = a.department_id
+WHERE e.salary > a.avg_sal;
+```
