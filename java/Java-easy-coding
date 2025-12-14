@@ -1,0 +1,348 @@
+# Java Coding Practice – Interview Notes (Full Programs)
+
+Below are **complete, corrected Java programs** with **clear headers**, exactly matching what you practiced. This is **Git-ready**.
+
+---
+
+## 1. Reverse a String
+
+```java
+public class ReverseString {
+    public static void main(String[] args) {
+        String str = "rokith is a good Boy";
+        String reversed = new StringBuilder(str).reverse().toString();
+        System.out.println(reversed);
+    }
+}
+```
+
+Time: O(n) | Space: O(n)
+
+---
+
+## 2. Reverse Each Word in a String
+
+```java
+public class ReverseEachWord {
+    public static void main(String[] args) {
+        String str = "Rokith is my name";
+        String[] words = str.split(" ");
+
+        for (String word : words) {
+            System.out.print(new StringBuilder(word).reverse() + " ");
+        }
+    }
+}
+```
+
+---
+
+## 3. Reverse Words Order
+
+```java
+public class ReverseWordsOrder {
+    public static void main(String[] args) {
+        String str = "Rokith is my name";
+        String[] arr = str.split(" ");
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+```
+
+---
+
+## 4. Remove Duplicates from String (Order Preserved)
+
+```java
+import java.util.*;
+
+public class RemoveDuplicates {
+    public static void main(String[] args) {
+        String str = "geeksforgeeks";
+        Set<Character> set = new LinkedHashSet<>();
+
+        for (char c : str.toCharArray()) {
+            set.add(c);
+        }
+        System.out.println(set);
+    }
+}
+```
+
+---
+
+## 5. Anagram Check
+
+```java
+import java.util.*;
+
+public class Anagram {
+    public static void main(String[] args) {
+        String s1 = "SILENT".toLowerCase();
+        String s2 = "LISTEN".toLowerCase();
+
+        char[] a1 = s1.toCharArray();
+        char[] a2 = s2.toCharArray();
+
+        if (a1.length != a2.length) {
+            System.out.println("Not Anagram");
+            return;
+        }
+
+        Arrays.sort(a1);
+        Arrays.sort(a2);
+
+        System.out.println(Arrays.equals(a1, a2) ? "Anagram" : "Not Anagram");
+    }
+}
+```
+
+---
+
+## 6. Reverse a Number
+
+```java
+public class ReverseNumber {
+    public static void main(String[] args) {
+        int num = 12345;
+        int rev = 0;
+
+        while (num != 0) {
+            rev = rev * 10 + num % 10;
+            num /= 10;
+        }
+        System.out.println(rev);
+    }
+}
+```
+
+---
+
+## 7. Palindrome Check (Number)
+
+```java
+public class Palindrome {
+    public static void main(String[] args) {
+        int num = 121;
+        int original = num, rev = 0;
+
+        while (num != 0) {
+            rev = rev * 10 + num % 10;
+            num /= 10;
+        }
+
+        System.out.println(original == rev ? "Palindrome" : "Not Palindrome");
+    }
+}
+```
+
+---
+
+## 8. Largest of Three Numbers
+
+```java
+public class LargestOfThree {
+    public static void main(String[] args) {
+        int a = 10, b = 20, c = 15;
+
+        if (a >= b && a >= c)
+            System.out.println(a);
+        else if (b >= a && b >= c)
+            System.out.println(b);
+        else
+            System.out.println(c);
+    }
+}
+```
+
+---
+
+## 9. Fibonacci Series
+
+```java
+public class Fibonacci {
+    public static void main(String[] args) {
+        int n1 = 0, n2 = 1;
+        System.out.print(n1 + " " + n2);
+
+        for (int i = 2; i < 10; i++) {
+            int sum = n1 + n2;
+            System.out.print(" " + sum);
+            n1 = n2;
+            n2 = sum;
+        }
+    }
+}
+```
+
+---
+
+## 10. Find Duplicates in Array
+
+```java
+import java.util.*;
+
+public class FindDuplicates {
+    public static void main(String[] args) {
+        int[] arr = {10, 15, 25, 78, 25, 78, 2, 2};
+        Set<Integer> seen = new HashSet<>();
+        Set<Integer> dup = new HashSet<>();
+
+        for (int n : arr) {
+            if (!seen.add(n)) dup.add(n);
+        }
+        System.out.println(dup);
+    }
+}
+```
+
+---
+
+## 11. Largest, Second Largest, Smallest
+
+```java
+public class LargestSecondSmallest {
+    public static void main(String[] args) {
+        int[] a = {10, 15, 25, 46, 87, 78};
+        int max = a[0], min = a[0], secondMax = Integer.MIN_VALUE;
+
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] > max) {
+                secondMax = max;
+                max = a[i];
+            } else if (a[i] > secondMax && a[i] != max) {
+                secondMax = a[i];
+            }
+            if (a[i] < min) min = a[i];
+        }
+
+        System.out.println("Max: " + max);
+        System.out.println("Second Max: " + secondMax);
+        System.out.println("Min: " + min);
+    }
+}
+```
+
+---
+
+## 12. Prime Numbers (2 to 30)
+
+```java
+public class PrimeNumbers {
+    public static void main(String[] args) {
+        for (int num = 2; num <= 30; num++) {
+            boolean isPrime = true;
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime) System.out.print(num + " ");
+        }
+    }
+}
+```
+
+---
+
+## 13. Factorial
+
+```java
+public class Factorial {
+    public static void main(String[] args) {
+        int num = 6;
+        long fact = 1;
+
+        for (int i = num; i >= 1; i--) fact *= i;
+        System.out.println(fact);
+    }
+}
+```
+
+---
+
+## 14. Armstrong Number
+
+```java
+public class Armstrong {
+    public static void main(String[] args) {
+        int n = 153, original = n, sum = 0;
+
+        while (n > 0) {
+            int d = n % 10;
+            sum += d * d * d;
+            n /= 10;
+        }
+        System.out.println(sum == original ? "Armstrong" : "Not Armstrong");
+    }
+}
+```
+
+---
+
+## 15. Linear Search
+
+```java
+public class LinearSearch {
+    public static void main(String[] args) {
+        int[] a = {10, 15, 24, 68};
+        int search = 15;
+        boolean found = false;
+
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == search) {
+                System.out.println("Found at index " + i);
+                found = true;
+                break;
+            }
+        }
+        if (!found) System.out.println("Not Found");
+    }
+}
+```
+
+---
+
+## 16. Reverse String Preserving Spaces
+
+```java
+public class ReversePreserveSpace {
+    public static void main(String[] args) {
+        String str = "Hi  this is  java";
+        char[] arr = str.toCharArray();
+        int l = 0, r = arr.length - 1;
+
+        while (l < r) {
+            if (arr[l] == ' ') l++;
+            else if (arr[r] == ' ') r--;
+            else {
+                char temp = arr[l];
+                arr[l] = arr[r];
+                arr[r] = temp;
+                l++; r--;
+            }
+        }
+        System.out.println(new String(arr));
+    }
+}
+```
+
+---
+
+## ⭐ Final Notes
+
+* All programs are **interview-safe**
+* Mention **time & space complexity** when explaining
+* Prefer **HashMap / HashSet** over nested loops
+
+---
+
+If you want next:
+
+* README.md structure
+* Optimized FAANG versions
+* One-line explanations per code
